@@ -1,0 +1,94 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <!-- 로고 -->
+        <a class="navbar-brand" th:href="|/${loginType}|"><img src="/images/tengen1.png" width="100px"></a>
+
+        <!-- 검색창 -->
+        <div class="search-container">
+            <form th:action="@{/security-login/search}" method="get">
+                <div class="navbar-search">
+                    <input id="searchInput" class="form-control me-2" type="search" name="keyword"
+                        placeholder="여행지나 숙소를 검색해보세요" onfocus="toggleSearchForm()">
+                    <input type="text" id="dateRangePicker" name="daterange" class="form-control"
+                        placeholder="체크인 - 체크아웃">
+
+
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary" type="button"
+                            onclick="toggleDogDropdown()">강아지</button>
+                        <div id="dogDropdown" class="dropdown-content">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="dogWeight1Label">SMALL</span>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="decrement('dogWeight1')">-</button>
+                                <input type="number" class="form-control" id="dogWeight1" value="0" min="0"
+                                    aria-label="1-6kg" aria-describedby="dogWeight1Label" readonly>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="increment('dogWeight1')">+</button>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="dogWeight2Label">MEDIUM</span>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="decrement('dogWeight2')">-</button>
+                                <input type="number" class="form-control" id="dogWeight2" value="0" min="0"
+                                    aria-label="7-12kg" aria-describedby="dogWeight2Label" readonly>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="increment('dogWeight2')">+</button>
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="dogWeight3Label">LARGE</span>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="decrement('dogWeight3')">-</button>
+                                <input type="number" class="form-control" id="dogWeight3" value="0" min="0"
+                                    aria-label="13-20kg" aria-describedby="dogWeight3Label" readonly>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    onclick="increment('dogWeight3')">+</button>
+                            </div>
+
+                        </div>
+                        <div class="search-button">
+                            <button type="submit" th:action="@{/security-login/search}"
+                                class="btn btn-outline-success">검색</button>
+                        </div>
+            </form>
+        </div>
+
+
+    </div>
+
+    </div>
+
+    <!-- 사용자 정보와 메뉴 -->
+    <div class="navbar-menu">
+        <div th:if="${uId == null}">
+            <a class="btn btn-link btn-sm" th:href="@{/security-login/login}" role="button"
+                style="font-size: 0.8rem;">로그인</a>
+            <a class="btn btn-link btn-sm" th:href="@{/security-login/join}" role="button"
+                style="font-size: 0.8rem;">회원가입</a>
+        </div>
+        <div th:unless="${uId == null}">
+            <span>[[${uName}]]님 환영합니다!</span>
+        </div>
+    </div>
+
+    <!-- Menu 드롭다운 버튼 -->
+    <div class="button-dropdown">
+        <button type="button" class="btn btn-link btn-sm" id="menuDropdown" onclick="toggleMenuDropdown()">
+            <!-- 여기서 <i class="bi bi-list"></i> 대신 SVG를 사용 -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </button>
+        <div id="menuDropdownContent" class="dropdown-content">
+            <a th:href="@{/security-login/reservation}" class="dropdown-item">Reservation</a>
+            <a th:href="@{/security-login/event}" class="dropdown-item">Event</a>
+            <a th:href="@{/security-login/info}" class="dropdown-item">My Page</a>
+            <a th:href="@{/security-login/logout}" class="dropdown-item">로그아웃</a>
+        </div>
+    </div>
+
+
+    </div>
+</nav>
